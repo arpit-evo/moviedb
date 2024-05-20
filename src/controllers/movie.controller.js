@@ -18,7 +18,11 @@ const addMovie = async (req,res)=> {
 
 const getAllMovies = async (req,res)=> {
   try {
-    const movies = await Movie.find()
+
+    const page = req.query.page || 1
+    const limit = req.query.limit || 10
+
+    const movies = await Movie.find().skip((page-1)*10).limit(limit)
 
     res.status(200).json({message:"all movies",movies})
   } catch (error) {
