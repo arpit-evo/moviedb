@@ -9,9 +9,8 @@ put:
       name: id
       required: true
       schema:
-        type: integer
-        minimum: 1
-        description: The user ID
+        type: string
+        description: The movie ID
   requestBody:
     required: true
     content:
