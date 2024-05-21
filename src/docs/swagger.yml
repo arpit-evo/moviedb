@@ -25,11 +25,11 @@ paths:
     $ref: "./apis/movies/movie.add.yml"
   /api/movie/:
     $ref: "./apis/movies/movie.getAll.yml"
-  /api/movie/:id:
+  /api/movie/{id}:
     $ref: "./apis/movies/movie.getById.yml"
-  /api/movie/update/:id:
+  /api/movie/update/{id}:
     $ref: "./apis/movies/movie.update.yml"
-  /api/movie/delete/:id:
+  /api/movie/delete/{id}:
     $ref: "./apis/movies/movie.delete.yml"
 
 components:
