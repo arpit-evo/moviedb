@@ -1,0 +1,12 @@
+type: object
+properties:
+  title:
+    type: string
+  publishingYear:
+    type: string
+  imageUrl:
+    type: string
+required:
+  - title
+  - publishingYear
+  - imageUrl
