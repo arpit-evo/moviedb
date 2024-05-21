@@ -1,0 +1,26 @@
+post:
+  parameters:
+    - in: cookie
+      name: refreshToken
+      required: true
+      schema:
+        type: string
+  summary: refresh access token user
+  tags:
+    - User
+  requestBody:
+  responses:
+    "200":
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              access_token:
+                type: string
+      headers:
+        Set-Cookie:
+          schema:
+            type: string
+            example: refreshToken=abcde12345; Path=/; HttpOnly

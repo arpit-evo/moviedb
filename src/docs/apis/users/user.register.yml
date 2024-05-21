@@ -1,0 +1,28 @@
+post:
+  summary: register user
+  tags:
+    - User
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            email:
+              type: string
+            password:
+              type: string
+  responses:
+    "201":
+      description: user registered
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              user:
+                type: object
+                $ref: "../../schemas/User.yml"
