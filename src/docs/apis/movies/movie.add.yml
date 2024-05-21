@@ -1,0 +1,36 @@
+post:
+  security:
+    - bearerAuth: []  
+  summary: add movie
+  tags:
+    - "Movie"
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            title:
+              type: string
+            publishingYear:
+              type: number
+            imageUrl:
+              type: string
+          required:
+            - title
+            - publishingYear
+            - imageUrl
+  responses:
+    "200":
+      description: movie added
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              movie:
+                type: object
+                $ref: "../../schemas/Movie.yml"

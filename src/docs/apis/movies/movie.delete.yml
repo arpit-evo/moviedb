@@ -1,0 +1,26 @@
+delete:
+  security:
+    - bearerAuth: []
+  summary: delete movie by id
+  tags:
+    - "Movie"
+  parameters:
+    - in: path
+      name: id
+      required: true
+      schema:
+        type: integer
+        minimum: 1
+        description: The user ID
+  requestBody:
+  responses:
+    "204":
+      description: movie deleted
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "movie deleted successfully"

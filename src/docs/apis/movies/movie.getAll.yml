@@ -1,0 +1,36 @@
+get:
+  security:
+    - bearerAuth: []
+  summary: get all movie
+  tags:
+    - "Movie"
+  parameters:
+    - name: page
+      in: query
+      required: false
+      description: The page number to retrieve
+      schema:
+        type: integer
+        default: 1
+    - name: limit
+      in: query
+      required: false
+      description: The number of items per page
+      schema:
+        type: integer
+        default: 10
+  requestBody:
+  responses:
+    "200":
+      description: movies fetched
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              movies:
+                type: array
+                items:
+                  $ref: "../../schemas/Movie.yml"

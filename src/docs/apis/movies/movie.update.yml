@@ -1,0 +1,40 @@
+put:
+  security:
+    - bearerAuth: []
+  summary: update movie
+  tags:
+    - "Movie"
+  parameters:
+    - in: path
+      name: id
+      required: true
+      schema:
+        type: integer
+        minimum: 1
+        description: The user ID
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            title:
+              type: string
+            publishingYear:
+              type: number
+            imageUrl:
+              type: string
+  responses:
+    "200":
+      description: movie added
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              movie:
+                type: object
+                $ref: "../../schemas/Movie.yml"

@@ -1,0 +1,28 @@
+get:
+  security:
+    - bearerAuth: []
+  summary: get movie by id
+  tags:
+    - "Movie"
+  parameters:
+    - in: path
+      name: id
+      required: true
+      schema:
+        type: integer
+        minimum: 1
+        description: The user ID
+  requestBody:
+  responses:
+    "200":
+      description: movie fetched
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              movies:
+                type: object
+                $ref: "../../schemas/Movie.yml"
