@@ -1,0 +1,42 @@
+openapi: 3.0.0
+info:
+  title: Movie project Apis
+  version: 1.0.0
+  description: API Documentation
+servers:
+  - url: "http://localhost:3000/"
+tags:
+  - name: User
+    description: The user managing API
+  - name: Movie
+    description: The Movie managing API
+
+paths:
+  #user apis docs
+  /api/user/register:
+    $ref: "./apis/users/user.register.yml"
+  /api/user/login:
+    $ref: "./apis/users/user.login.yml"
+  /api/user/refresh-token:
+    $ref: "./apis/users/user.refreshToken.yml"
+
+  #movie apis docs
+  /api/movie/add:
+    $ref: "./apis/movies/movie.add.yml"
+  /api/movie/:
+    $ref: "./apis/movies/movie.getAll.yml"
+  /api/movie/:id:
+    $ref: "./apis/movies/movie.getById.yml"
+  /api/movie/update/:id:
+    $ref: "./apis/movies/movie.update.yml"
+  /api/movie/delete/:id:
+    $ref: "./apis/movies/movie.delete.yml"
+
+components:
+  securitySchemes:
+    $ref: "./schemas/Auth.yml"
+  schemas:
+    User:
+      $ref: "./schemas/User.yml"
+    Movie:
+      $ref: "./schemas/Movie.yml"
