@@ -13,7 +13,7 @@ const router = express.Router();
 router.post("/add", upload.single("image"), addMovie);
 router.get("/", getAllMovies);
 router.get("/:id", getMovieById);
-router.put("/:id", upload.single("image"), updateMovie);
-router.delete("/:id", deleteMovie);
+router.put("/update/:id", upload.single("image"), updateMovie);
+router.delete("/delete/:id", deleteMovie);
 
 module.exports = router;
