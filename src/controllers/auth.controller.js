@@ -9,7 +9,7 @@ const generateToken = (user, rememberMe) => {
   });
 
   const refreshToken = jwt.sign(
-    { userId },
+    { id: user._id },
     process.env.JWT_REFRESH_SECRET_KEY,
     {
       expiresIn: rememberMe
