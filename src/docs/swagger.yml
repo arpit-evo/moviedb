@@ -12,25 +12,25 @@ tags:
     description: The Movie managing API
 
 paths:
-  #user apis docs
+  #user routes docs
   /api/user/register:
-    $ref: "./apis/users/user.register.yml"
+    $ref: "./routes/users/user.register.yml"
   /api/user/login:
-    $ref: "./apis/users/user.login.yml"
+    $ref: "./routes/users/user.login.yml"
   /api/user/refresh-token:
-    $ref: "./apis/users/user.refreshToken.yml"
+    $ref: "./routes/users/user.refreshToken.yml"
 
-  #movie apis docs
+  #movie routes docs
   /api/movie/add:
-    $ref: "./apis/movies/movie.add.yml"
+    $ref: "./routes/movies/movie.add.yml"
   /api/movie/:
-    $ref: "./apis/movies/movie.getAll.yml"
+    $ref: "./routes/movies/movie.getAll.yml"
   /api/movie/{id}:
-    $ref: "./apis/movies/movie.getById.yml"
+    $ref: "./routes/movies/movie.getById.yml"
   /api/movie/update/{id}:
-    $ref: "./apis/movies/movie.update.yml"
+    $ref: "./routes/movies/movie.update.yml"
   /api/movie/delete/{id}:
-    $ref: "./apis/movies/movie.delete.yml"
+    $ref: "./routes/movies/movie.delete.yml"
 
 components:
   securitySchemes:
