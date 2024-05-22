@@ -17,6 +17,8 @@ const movieSchema = new mongoose.Schema(
   }
 );
 
+movieSchema.index({ title: "text", publishingYear: "desc" });
+
 const Movie = mongoose.model("Movie", movieSchema);
 
 module.exports = Movie;
