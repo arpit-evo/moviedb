@@ -12,7 +12,7 @@ const app = express();
 
 const swaggerDocument = YAML.load(
   path.join(__dirname, "src", "docs", "swagger-bundle.yaml")
-); //"./src/docs/swagger.yml";
+);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
