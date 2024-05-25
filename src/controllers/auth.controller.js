@@ -42,8 +42,7 @@ const signIn = async (req, res) => {
     }
 
     const { accessToken, refreshToken } = generateToken(user, rememberMe);
-    res.cookie("refreshToken", refreshToken, { httpOnly: true, secure: true });
-    res.status(200).json({ message: "user login", accessToken });
+    res.status(200).json({ message: "user login", accessToken ,refreshToken});
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

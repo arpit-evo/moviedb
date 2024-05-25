@@ -3,13 +3,12 @@ const cloudinary = require("../middlewares/cloudinary.middleware");
 
 const addMovie = async (req, res) => {
   try {
-    const { title, publishingYear } = req.body;
-    const result = await cloudinary.uploader.upload(req.file.path);
+    const { title, publishingYear,imageUrl } = req.body;
 
     const movie = new Movie({
       title: title,
       publishingYear: publishingYear,
-      imageUrl: result.url,
+      imageUrl: imageUrl,
     });
 
     await movie.save();
@@ -24,13 +23,13 @@ const getAllMovies = async (req, res) => {
   const { search } = req.body;
   try {
     const page = req.query.page || 1;
-    const limit = req.query.limit || 10;
+    const limit = req.query.limit || 8;
     let movies;
     if (search) {
       movies = await Movie.find({ $text: { $search: search } });
     } else {
       movies = await Movie.find()
-        .skip((page - 1) * 10)
+        .skip((page - 1) * 8)
         .limit(limit);
     }
 

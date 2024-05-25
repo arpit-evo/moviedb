@@ -10,7 +10,7 @@ const upload = require("../middlewares/multer.middleware");
 
 const router = express.Router();
 
-router.post("/add", upload.single("image"), addMovie);
+router.post("/add", addMovie);
 router.get("/", getAllMovies);
 router.get("/:id", getMovieById);
 router.put("/update/:id", upload.single("image"), updateMovie);
