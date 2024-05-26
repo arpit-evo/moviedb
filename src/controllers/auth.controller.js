@@ -48,16 +48,15 @@ const signIn = async (req, res) => {
   }
 };
 
-const refreshToken = (req, res) => {
-  const { refreshToken } = req.cookies;
-
+const refreshToken = async (req, res) => {
+  const { refreshToken } = req.body;
   if (!refreshToken) {
     return res.status(401).json({ message: "no refresh token provided" });
   }
-
-  jwt.verify(
+  
+   jwt.verify(
     refreshToken,
-    process.env.JWT_REFRESH_SECRET_KEY,
+    process.env.JWT_SECRET_KEY,
     async (err, decoded) => {
       if (err) {
         console.log(err);
