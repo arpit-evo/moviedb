@@ -56,7 +56,7 @@ const refreshToken = async (req, res) => {
   
    jwt.verify(
     refreshToken,
-    process.env.JWT_SECRET_KEY,
+    process.env.JWT_REFRESH_SECRET_KEY,
     async (err, decoded) => {
       if (err) {
         console.log(err);
