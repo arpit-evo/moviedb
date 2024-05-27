@@ -3,16 +3,16 @@ const cloudinary = require("../middlewares/cloudinary.middleware");
 
 const addMovie = async (req, res) => {
   try {
-    const { title, publishingYear, imageUrl } = req.body;
+    const { title, publishingYear } = req.body;
 
-    if (!title || !publishingYear || !imageUrl) {
+    if (!title || !publishingYear || !req.file.path) {
       return res.status(500).json({ message: "provide valid information" });
     }
-
+    const result = await cloudinary.uploader.upload(req.file.path);
     const movie = new Movie({
       title: title,
       publishingYear: publishingYear,
-      imageUrl: imageUrl,
+      imageUrl: result.url,
     });
 
     await movie.save();
