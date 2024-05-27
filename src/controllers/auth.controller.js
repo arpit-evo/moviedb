@@ -4,7 +4,6 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const generateToken = require("../utils/generateToken");
 
-
 const register = async (req, res) => {
   const { email, password } = req.body;
   if (!email && !password) {
@@ -42,7 +41,7 @@ const signIn = async (req, res) => {
     }
 
     const { accessToken, refreshToken } = generateToken(user, rememberMe);
-    res.status(200).json({ message: "user login", accessToken ,refreshToken});
+    res.status(200).json({ message: "user login", accessToken, refreshToken });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -53,24 +52,23 @@ const refreshToken = async (req, res) => {
   if (!refreshToken) {
     return res.status(401).json({ message: "no refresh token provided" });
   }
-  
-   jwt.verify(
+
+  jwt.verify(
     refreshToken,
     process.env.JWT_REFRESH_SECRET_KEY,
     async (err, decoded) => {
       if (err) {
-        console.log(err);
         return res.status(403).json({ error: "Forbidden" });
       }
       const user = await User.findById({ _id: decoded.id });
       const { accessToken, newRefreshToken } = generateToken(user, true);
-      res.cookie("refreshToken", newRefreshToken, {
-        httpOnly: true,
-        secure: true,
-      });
       res
         .status(200)
-        .json({ message: "refresh token successfully ", accessToken });
+        .json({
+          message: "refresh token successfully ",
+          accessToken,
+          newRefreshToken,
+        });
     }
   );
 };
