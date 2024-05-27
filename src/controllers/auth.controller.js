@@ -61,13 +61,13 @@ const refreshToken = async (req, res) => {
         return res.status(403).json({ error: "Forbidden" });
       }
       const user = await User.findById({ _id: decoded.id });
-      const { accessToken, newRefreshToken } = generateToken(user, true);
+      const { accessToken, refreshToken } = generateToken(user, true);
       res
         .status(200)
         .json({
           message: "refresh token successfully ",
           accessToken,
-          newRefreshToken,
+          newRefreshToken: refreshToken,
         });
     }
   );
