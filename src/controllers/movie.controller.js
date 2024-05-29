@@ -24,20 +24,28 @@ const addMovie = async (req, res) => {
 };
 
 const getAllMovies = async (req, res) => {
-  const { search } = req.body;
+  const page = req.query.page || 1;
+  const limit = req.query.limit || 8;
+  const search = req.query.search || "";
+  let sort = req.query.sort || "title";
+
+  req.query.sort ? (sort = req.query.sort.split(",")) : (sort = [sort]);
+
+  let sortBy = {};
+  if (sort[1]) {
+    sortBy[sort[0]] = sort[1];
+  } else {
+    sortBy[sort[0]] = "asc";
+  }
+
   try {
-    const page = req.query.page || 1;
-    const limit = req.query.limit || 8;
-    let movies;
-    let movieCount;
-    if (search) {
-      movies = await Movie.find({ $text: { $search: search } });
-    } else {
-      movieCount = await Movie.countDocuments();
-      movies = await Movie.find()
-        .skip((page - 1) * 8)
-        .limit(limit);
-    }
+    const movieCount = await Movie.countDocuments();
+    const movies = await Movie.find({
+      title: { $regex: search, $options: "i" },
+    })
+      .sort(sortBy)
+      .skip((page - 1) * 8)
+      .limit(limit);
 
     res.status(200).json({ message: "all movies", movies, movieCount });
   } catch (error) {

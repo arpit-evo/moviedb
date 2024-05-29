@@ -6,7 +6,7 @@ const movieSchema = new mongoose.Schema(
       type: String,
     },
     publishingYear: {
-      type: String,
+      type: Number,
     },
     imageUrl: {
       type: String,
@@ -16,8 +16,6 @@ const movieSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
-
-movieSchema.index({ title: "text", publishingYear: "desc" });
 
 const Movie = mongoose.model("Movie", movieSchema);
 
