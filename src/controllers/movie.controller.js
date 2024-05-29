@@ -39,7 +39,9 @@ const getAllMovies = async (req, res) => {
   }
 
   try {
-    const movieCount = await Movie.countDocuments();
+    const movieCount = await Movie.countDocuments({
+      title: { $regex: search, $options: "i" },
+    });
     const movies = await Movie.find({
       title: { $regex: search, $options: "i" },
     })
