@@ -39,7 +39,8 @@ const getAllMovies = async (req, res) => {
   }
 
   try {
-    const movieCount = await Movie.countDocuments({
+    const totalCount = await Movie.countDocuments()
+    const searchCount = await Movie.countDocuments({
       title: { $regex: search, $options: "i" },
     });
     const movies = await Movie.find({
@@ -49,7 +50,7 @@ const getAllMovies = async (req, res) => {
       .skip((page - 1) * 8)
       .limit(limit);
 
-    res.status(200).json({ message: "all movies", movies, movieCount });
+    res.status(200).json({ message: "all movies", movies, searchCount,totalCount });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
