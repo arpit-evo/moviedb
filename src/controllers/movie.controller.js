@@ -29,17 +29,17 @@ const getAllMovies = async (req, res) => {
     const page = req.query.page || 1;
     const limit = req.query.limit || 8;
     let movies;
-    let movieCount
+    let movieCount;
     if (search) {
       movies = await Movie.find({ $text: { $search: search } });
     } else {
-      movieCount = await Movie.countDocuments()
+      movieCount = await Movie.countDocuments();
       movies = await Movie.find()
         .skip((page - 1) * 8)
         .limit(limit);
     }
 
-    res.status(200).json({ message: "all movies", movies ,movieCount});
+    res.status(200).json({ message: "all movies", movies, movieCount });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
