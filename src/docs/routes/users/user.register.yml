@@ -13,6 +13,9 @@ post:
               type: string
             password:
               type: string
+          required:
+            - email
+            - password
   responses:
     "201":
       description: user registered
@@ -26,3 +29,9 @@ post:
               user:
                 type: object
                 $ref: "../../schemas/User.yml"
+    "400":
+      description: Invaild information
+      $ref: "../../responses/comman.response.yml"
+    "500":
+      description: Internal server error
+      $ref: "../../responses/comman.response.yml"

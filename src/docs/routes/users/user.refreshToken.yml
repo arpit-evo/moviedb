@@ -1,14 +1,18 @@
 post:
-  parameters:
-    - in: cookie
-      name: refreshToken
-      required: true
-      schema:
-        type: string
   summary: refresh access token user
   tags:
     - User
   requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            refreshToken:
+              type: string
+          required:
+            - refreshToken
   responses:
     "200":
       description: Successful response
@@ -17,10 +21,13 @@ post:
           schema:
             type: object
             properties:
-              access_token:
+              accessToken:
                 type: string
-      headers:
-        Set-Cookie:
-          schema:
-            type: string
-            example: refreshToken=abcde12345; Path=/; HttpOnly
+              newRefreshToken:
+                type: string
+    "401":
+      description: Forbidden or Unauthorized
+      $ref: "../../responses/comman.response.yml"
+    "500":
+      description: Internal server error
+      $ref: "../../responses/comman.response.yml"

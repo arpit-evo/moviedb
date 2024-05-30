@@ -30,8 +30,12 @@ post:
                 type: string
               accessToken:
                 type: string
-      headers:
-        Set-Cookie:
-          schema:
-            type: string
-            example: refreshToken=abcde12345; Path=/; HttpOnly
+              refreshToken:
+                type: string
+    "400":
+      description: Invaild information
+      $ref: "../../responses/comman.response.yml"
+    "500":
+      description: Internal server error
+      $ref: "../../responses/comman.response.yml"
+
