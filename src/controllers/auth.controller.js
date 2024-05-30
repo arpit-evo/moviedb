@@ -58,7 +58,7 @@ const refreshToken = async (req, res) => {
     process.env.JWT_REFRESH_SECRET_KEY,
     async (err, decoded) => {
       if (err) {
-        return res.status(403).json({ error: "Forbidden" });
+        return res.status(401).json({ error: "Forbidden" });
       }
       const user = await User.findById({ _id: decoded.id });
       const { accessToken, refreshToken } = generateToken(user, true);

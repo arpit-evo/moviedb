@@ -6,7 +6,7 @@ const addMovie = async (req, res) => {
     const { title, publishingYear } = req.body;
 
     if (!title || !publishingYear || !req.file.path) {
-      return res.status(500).json({ message: "provide valid information" });
+      return res.status(400).json({ message: "provide valid information" });
     }
     const result = await cloudinary.uploader.upload(req.file.path);
     const movie = new Movie({
@@ -62,6 +62,10 @@ const getMovieById = async (req, res) => {
   try {
     const movie = await Movie.findById(id);
 
+    if (!movie) {
+      res.status(404).json({ message: "movie not found" });  
+    }
+
     res.status(200).json({ message: "movie fetched", movie });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -87,7 +91,7 @@ const updateMovie = async (req, res) => {
     let movie = await Movie.findById(id);
 
     if (!movie) {
-      return res.status(400).json({ message: "movie not found" });
+      return res.status(404).json({ message: "movie not found" });
     }
     let result;
     if (req.file) {
