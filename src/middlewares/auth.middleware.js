@@ -13,7 +13,7 @@ function authenticateToken(req, res, next) {
   jwt.verify(token, process.env.JWT_SECRET_KEY, async (err, decoded) => {
     if (err) {
       console.log(err);
-      return res.status(403).json({ error: "Forbidden" });
+      return res.status(401).json({ error: "Forbidden" });
     }
 
     const user = await User.findById({ _id: decoded.id });
