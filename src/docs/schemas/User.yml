@@ -2,13 +2,17 @@ type: object
 properties:
   _id:
     type: string
-  username:
-    type: string
   email:
     type: string
   password:
     type: string
+  createdAt:
+    type: number
+  updatedAt:
+    type: number
 required:
   - id
-  - username
   - email
+  - password
+  - createdAt
+  - updatedAt

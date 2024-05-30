@@ -1,12 +1,21 @@
 type: object
 properties:
+  _id:
+    type: string
   title:
     type: string
   publishingYear:
-    type: string
+    type: number
   imageUrl:
     type: string
+  createdAt:
+    type: number
+  updatedAt:
+    type: number
 required:
+  - _id
   - title
   - publishingYear
   - imageUrl
+  - createdAt
+  - updatedAt
