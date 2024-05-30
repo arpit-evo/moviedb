@@ -1,0 +1,606 @@
+{
+  "openapi": "3.0.0",
+  "info":
+    {
+      "title": "Movie project Apis",
+      "version": "1.0.0",
+      "description": "API Documentation",
+    },
+  "servers": [{ "url": "http://localhost:3000/" }],
+  "tags":
+    [
+      { "name": "User", "description": "The user managing API" },
+      { "name": "Movie", "description": "The Movie managing API" },
+    ],
+  "paths":
+    {
+      "/api/user/register":
+        {
+          "post":
+            {
+              "summary": "register user",
+              "tags": ["User"],
+              "requestBody":
+                {
+                  "required": true,
+                  "content":
+                    {
+                      "application/json":
+                        {
+                          "schema":
+                            {
+                              "type": "object",
+                              "properties":
+                                {
+                                  "email": { "type": "string" },
+                                  "password": { "type": "string" },
+                                },
+                              "required": ["email", "password"],
+                            },
+                        },
+                    },
+                },
+              "responses":
+                {
+                  "201":
+                    {
+                      "description": "user registered",
+                      "content":
+                        {
+                          "application/json":
+                            {
+                              "schema":
+                                {
+                                  "type": "object",
+                                  "properties":
+                                    {
+                                      "message": { "type": "string" },
+                                      "user":
+                                        {
+                                          "type": "object",
+                                          "$ref": "#/components/schemas/User",
+                                        },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                  "400":
+                    {
+                      "description": "Invaild information",
+                      "$ref": "#/paths/~1api~1movie~1/get/responses/401",
+                    },
+                  "500":
+                    {
+                      "description": "Internal server error",
+                      "$ref": "#/paths/~1api~1movie~1/get/responses/401",
+                    },
+                },
+            },
+        },
+      "/api/user/login":
+        {
+          "post":
+            {
+              "summary": "Login user",
+              "tags": ["User"],
+              "requestBody":
+                {
+                  "required": true,
+                  "content":
+                    {
+                      "application/json":
+                        {
+                          "schema":
+                            {
+                              "type": "object",
+                              "properties":
+                                {
+                                  "email": { "type": "string" },
+                                  "password": { "type": "string" },
+                                  "rememberMe": { "type": "boolean" },
+                                },
+                              "required": ["email", "password"],
+                            },
+                        },
+                    },
+                },
+              "responses":
+                {
+                  "200":
+                    {
+                      "description": "user registered",
+                      "content":
+                        {
+                          "application/json":
+                            {
+                              "schema":
+                                {
+                                  "type": "object",
+                                  "properties":
+                                    {
+                                      "message": { "type": "string" },
+                                      "accessToken": { "type": "string" },
+                                      "refreshToken": { "type": "string" },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                  "400":
+                    {
+                      "description": "Invaild information",
+                      "$ref": "#/paths/~1api~1movie~1/get/responses/401",
+                    },
+                  "500":
+                    {
+                      "description": "Internal server error",
+                      "$ref": "#/paths/~1api~1movie~1/get/responses/401",
+                    },
+                },
+            },
+        },
+      "/api/user/refresh-token":
+        {
+          "post":
+            {
+              "summary": "refresh access token user",
+              "tags": ["User"],
+              "requestBody":
+                {
+                  "required": true,
+                  "content":
+                    {
+                      "application/json":
+                        {
+                          "schema":
+                            {
+                              "type": "object",
+                              "properties":
+                                { "refreshToken": { "type": "string" } },
+                              "required": ["refreshToken"],
+                            },
+                        },
+                    },
+                },
+              "responses":
+                {
+                  "200":
+                    {
+                      "description": "Successful response",
+                      "content":
+                        {
+                          "application/json":
+                            {
+                              "schema":
+                                {
+                                  "type": "object",
+                                  "properties":
+                                    {
+                                      "accessToken": { "type": "string" },
+                                      "newRefreshToken": { "type": "string" },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                  "401":
+                    {
+                      "description": "Forbidden or Unauthorized",
+                      "$ref": "#/paths/~1api~1movie~1/get/responses/401",
+                    },
+                  "500":
+                    {
+                      "description": "Internal server error",
+                      "$ref": "#/paths/~1api~1movie~1/get/responses/401",
+                    },
+                },
+            },
+        },
+      "/api/movie/add":
+        {
+          "post":
+            {
+              "security": [{ "bearerAuth": [] }],
+              "summary": "add movie",
+              "tags": ["Movie"],
+              "requestBody":
+                {
+                  "required": true,
+                  "content":
+                    {
+                      "multipart/form-data":
+                        {
+                          "schema":
+                            {
+                              "type": "object",
+                              "properties":
+                                {
+                                  "title": { "type": "string" },
+                                  "publishingYear": { "type": "number" },
+                                  "file":
+                                    { "type": "string", "format": "binary" },
+                                },
+                              "required": ["title", "publishingYear", "file"],
+                            },
+                        },
+                    },
+                },
+              "responses":
+                {
+                  "200":
+                    {
+                      "description": "movie added",
+                      "content":
+                        {
+                          "application/json":
+                            {
+                              "schema":
+                                {
+                                  "type": "object",
+                                  "properties":
+                                    {
+                                      "message": { "type": "string" },
+                                      "movie":
+                                        {
+                                          "type": "object",
+                                          "$ref": "#/components/schemas/Movie",
+                                        },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                  "400":
+                    {
+                      "description": "Invaild information",
+                      "$ref": "#/paths/~1api~1movie~1/get/responses/401",
+                    },
+                  "401":
+                    {
+                      "description": "Forbidden or Unauthorized",
+                      "$ref": "#/paths/~1api~1movie~1/get/responses/401",
+                    },
+                  "500":
+                    {
+                      "description": "Internal server error",
+                      "$ref": "#/paths/~1api~1movie~1/get/responses/401",
+                    },
+                },
+            },
+        },
+      "/api/movie/":
+        {
+          "get":
+            {
+              "security": [{ "bearerAuth": [] }],
+              "summary": "get all movie",
+              "tags": ["Movie"],
+              "parameters":
+                [
+                  {
+                    "name": "page",
+                    "in": "query",
+                    "required": false,
+                    "description": "The page number to retrieve",
+                    "schema": { "type": "integer", "default": 1 },
+                  },
+                  {
+                    "name": "limit",
+                    "in": "query",
+                    "required": false,
+                    "description": "The number of items per page",
+                    "schema": { "type": "integer", "default": 10 },
+                  },
+                  {
+                    "name": "search",
+                    "in": "query",
+                    "required": false,
+                    "description": "search term",
+                    "schema": { "type": "string" },
+                  },
+                  {
+                    "name": "sort",
+                    "in": "query",
+                    "required": false,
+                    "description": "sortby parameter sort,order",
+                    "schema": { "type": "string", "default": "title,asc" },
+                  },
+                ],
+              "requestBody": null,
+              "responses":
+                {
+                  "200":
+                    {
+                      "description": "movies fetched",
+                      "content":
+                        {
+                          "application/json":
+                            {
+                              "schema":
+                                {
+                                  "type": "object",
+                                  "properties":
+                                    {
+                                      "message": { "type": "string" },
+                                      "movies":
+                                        {
+                                          "type": "array",
+                                          "items":
+                                            {
+                                              "$ref": "#/components/schemas/Movie",
+                                            },
+                                        },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                  "401":
+                    {
+                      "description": "Forbidden or Unauthorized",
+                      "content":
+                        {
+                          "application/json":
+                            {
+                              "schema":
+                                {
+                                  "type": "object",
+                                  "properties":
+                                    { "message": { "type": "string" } },
+                                },
+                            },
+                        },
+                    },
+                  "500":
+                    {
+                      "description": "Internal server error",
+                      "$ref": "#/paths/~1api~1movie~1/get/responses/401",
+                    },
+                },
+            },
+        },
+      "/api/movie/{id}":
+        {
+          "get":
+            {
+              "security": [{ "bearerAuth": [] }],
+              "summary": "get movie by id",
+              "tags": ["Movie"],
+              "parameters":
+                [
+                  {
+                    "in": "path",
+                    "name": "id",
+                    "required": true,
+                    "schema": { "type": "string" },
+                  },
+                ],
+              "requestBody": null,
+              "responses":
+                {
+                  "200":
+                    {
+                      "description": "movie fetched",
+                      "content":
+                        {
+                          "application/json":
+                            {
+                              "schema":
+                                {
+                                  "type": "object",
+                                  "properties":
+                                    {
+                                      "message": { "type": "string" },
+                                      "movies":
+                                        {
+                                          "type": "object",
+                                          "$ref": "#/components/schemas/Movie",
+                                        },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                  "401":
+                    {
+                      "description": "Forbidden or Unauthorized",
+                      "$ref": "#/paths/~1api~1movie~1/get/responses/401",
+                    },
+                  "404":
+                    {
+                      "description": "not found",
+                      "$ref": "#/paths/~1api~1movie~1/get/responses/401",
+                    },
+                  "500":
+                    {
+                      "description": "Internal server error",
+                      "$ref": "#/paths/~1api~1movie~1/get/responses/401",
+                    },
+                },
+            },
+        },
+      "/api/movie/update/{id}":
+        {
+          "put":
+            {
+              "security": [{ "bearerAuth": [] }],
+              "summary": "update movie",
+              "tags": ["Movie"],
+              "parameters":
+                [
+                  {
+                    "in": "path",
+                    "name": "id",
+                    "required": true,
+                    "schema":
+                      { "type": "string", "description": "The movie ID" },
+                  },
+                ],
+              "requestBody":
+                {
+                  "required": true,
+                  "content":
+                    {
+                      "multipart/form-data":
+                        {
+                          "schema":
+                            {
+                              "type": "object",
+                              "properties":
+                                {
+                                  "title": { "type": "string" },
+                                  "publishingYear": { "type": "number" },
+                                  "file":
+                                    { "type": "string", "format": "binary" },
+                                },
+                            },
+                        },
+                    },
+                },
+              "responses":
+                {
+                  "200":
+                    {
+                      "description": "movie added",
+                      "content":
+                        {
+                          "application/json":
+                            {
+                              "schema":
+                                {
+                                  "type": "object",
+                                  "properties":
+                                    {
+                                      "message": { "type": "string" },
+                                      "movie":
+                                        {
+                                          "type": "object",
+                                          "$ref": "#/components/schemas/Movie",
+                                        },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                  "401":
+                    {
+                      "description": "Forbidden or Unauthorized",
+                      "$ref": "#/paths/~1api~1movie~1/get/responses/401",
+                    },
+                  "404":
+                    {
+                      "description": "not found",
+                      "$ref": "#/paths/~1api~1movie~1/get/responses/401",
+                    },
+                  "500":
+                    {
+                      "description": "Internal server error",
+                      "$ref": "#/paths/~1api~1movie~1/get/responses/401",
+                    },
+                },
+            },
+        },
+      "/api/movie/delete/{id}":
+        {
+          "delete":
+            {
+              "security": [{ "bearerAuth": [] }],
+              "summary": "delete movie by id",
+              "tags": ["Movie"],
+              "parameters":
+                [
+                  {
+                    "in": "path",
+                    "name": "id",
+                    "required": true,
+                    "schema":
+                      { "type": "string", "description": "The movie ID" },
+                  },
+                ],
+              "requestBody": null,
+              "responses":
+                {
+                  "204":
+                    {
+                      "description": "movie deleted",
+                      "content":
+                        {
+                          "application/json":
+                            {
+                              "schema":
+                                {
+                                  "type": "object",
+                                  "properties":
+                                    {
+                                      "message":
+                                        {
+                                          "type": "string",
+                                          "example": "movie deleted successfully",
+                                        },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                  "401":
+                    {
+                      "description": "Forbidden or Unauthorized",
+                      "$ref": "#/paths/~1api~1movie~1/get/responses/401",
+                    },
+                  "500":
+                    {
+                      "description": "Internal server error",
+                      "$ref": "#/paths/~1api~1movie~1/get/responses/401",
+                    },
+                },
+            },
+        },
+    },
+  "components":
+    {
+      "securitySchemes":
+        {
+          "bearerAuth":
+            { "type": "http", "scheme": "bearer", "bearerFormat": "JWT" },
+        },
+      "schemas":
+        {
+          "User":
+            {
+              "type": "object",
+              "properties":
+                {
+                  "_id": { "type": "string" },
+                  "email": { "type": "string" },
+                  "password": { "type": "string" },
+                  "createdAt": { "type": "number" },
+                  "updatedAt": { "type": "number" },
+                },
+              "required": ["id", "email", "password", "createdAt", "updatedAt"],
+            },
+          "Movie":
+            {
+              "type": "object",
+              "properties":
+                {
+                  "_id": { "type": "string" },
+                  "title": { "type": "string" },
+                  "publishingYear": { "type": "number" },
+                  "imageUrl": { "type": "string" },
+                  "createdAt": { "type": "number" },
+                  "updatedAt": { "type": "number" },
+                },
+              "required":
+                [
+                  "_id",
+                  "title",
+                  "publishingYear",
+                  "imageUrl",
+                  "createdAt",
+                  "updatedAt",
+                ],
+            },
+        },
+    },
+}
