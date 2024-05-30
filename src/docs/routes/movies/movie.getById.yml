@@ -24,3 +24,12 @@ get:
               movies:
                 type: object
                 $ref: "../../schemas/Movie.yml"
+    "401":
+      description: Forbidden or Unauthorized
+      $ref: "../../responses/comman.response.yml"
+    "404":
+      description: "not found"
+      $ref: "../../responses/comman.response.yml"
+    "500":
+      description: Internal server error
+      $ref: "../../responses/comman.response.yml"

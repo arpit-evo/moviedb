@@ -14,7 +14,7 @@ put:
   requestBody:
     required: true
     content:
-      application/json:
+      multipart/form-data:
         schema:
           type: object
           properties:
@@ -22,8 +22,9 @@ put:
               type: string
             publishingYear:
               type: number
-            imageUrl:
+            file:
               type: string
+              format: binary
   responses:
     "200":
       description: movie added
@@ -37,3 +38,12 @@ put:
               movie:
                 type: object
                 $ref: "../../schemas/Movie.yml"
+    "401":
+      description: Forbidden or Unauthorized
+      $ref: "../../responses/comman.response.yml"
+    "404":
+      description: "not found"
+      $ref: "../../responses/comman.response.yml"
+    "500":
+      description: Internal server error
+      $ref: "../../responses/comman.response.yml"

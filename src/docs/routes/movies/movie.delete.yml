@@ -23,3 +23,9 @@ delete:
               message:
                 type: string
                 example: "movie deleted successfully"
+    "401":
+      description: Forbidden or Unauthorized
+      $ref: "../../responses/comman.response.yml"
+    "500":
+      description: Internal server error
+      $ref: "../../responses/comman.response.yml"

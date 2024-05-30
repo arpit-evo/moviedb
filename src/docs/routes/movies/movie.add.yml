@@ -1,13 +1,13 @@
 post:
   security:
-    - bearerAuth: []  
+    - bearerAuth: []
   summary: add movie
   tags:
     - "Movie"
   requestBody:
     required: true
     content:
-      application/json:
+      multipart/form-data:
         schema:
           type: object
           properties:
@@ -15,12 +15,13 @@ post:
               type: string
             publishingYear:
               type: number
-            imageUrl:
+            file:
               type: string
+              format: binary
           required:
             - title
             - publishingYear
-            - imageUrl
+            - file
   responses:
     "200":
       description: movie added
@@ -34,3 +35,12 @@ post:
               movie:
                 type: object
                 $ref: "../../schemas/Movie.yml"
+    "401":
+      description: Forbidden or Unauthorized
+      $ref: "../../responses/comman.response.yml"
+    "400":
+      description: Invaild information
+      $ref: "../../responses/comman.response.yml"
+    "500":
+      description: Internal server error
+      $ref: "../../responses/comman.response.yml"
